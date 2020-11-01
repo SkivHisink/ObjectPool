@@ -1,5 +1,7 @@
-#include <iostream>
 #include "ObjectPool.hpp"
+#define _CRTDBG_MAP_ALLOC
+#include <iostream>
+#include <crtdbg.h>
 
 int main()
 {
@@ -28,5 +30,5 @@ int main()
 	if (!moved_str.empty()) {
 		std::cout << "Something went wrong\n";
 	}
-	return 0;
+	return _CrtDumpMemoryLeaks();;
 }

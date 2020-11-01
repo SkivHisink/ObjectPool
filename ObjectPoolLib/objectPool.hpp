@@ -2,7 +2,6 @@
 #include <memory>
 #include <vector>
 #include <stdexcept>
-#include <stack>
 
 template<class Object>
 class ObjectPool final
@@ -37,7 +36,7 @@ public:
 		return *object_ptr;
 	}
 
-	void  free(Object& object)
+	void free(Object& object)
 	{
 		Object* object_ptr = &object;
 
