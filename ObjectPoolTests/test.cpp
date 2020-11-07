@@ -1,6 +1,5 @@
 #include "pch.h"
 #include <array>
-#include <chrono>
 #include <random>
 
 #include "objectPool.hpp"
@@ -31,7 +30,9 @@ std::string random_string(size_t length)
 			"beta test";
 
 		const auto max_index = (sizeof(charset) - 1);
-		return charset[rand() % max_index];
+		std::random_device randomDevice;
+		std::mt19937 mersenne(randomDevice());
+		return charset[mersenne() % max_index];
 	};
 	std::string str(length, 0);
 	std::generate_n(str.begin(), length, rand_letter);
@@ -261,9 +262,10 @@ TEST_F(Standart_tests, RandomItemDeleting)
 	{
 		tested_strings.emplace_back(str_pool.allocate(expected_string));
 	}
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::shuffle(tested_strings.begin(), tested_strings.end(), std::default_random_engine(seed));
-	for(auto i=0;i<objects_count;++i)
+	std::random_device randomDevice;
+	std::mt19937 mersenne(randomDevice());
+	std::shuffle(tested_strings.begin(), tested_strings.end(), mersenne);
+	for (auto i = 0; i < objects_count; ++i)
 	{
 		str_pool.free(tested_strings[i]);
 	}
