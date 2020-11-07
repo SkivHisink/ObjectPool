@@ -30,8 +30,7 @@ std::string random_string(size_t length)
 			"beta test";
 
 		const auto max_index = (sizeof(charset) - 1);
-		std::random_device randomDevice;
-		std::mt19937 mersenne(randomDevice());
+		std::mt19937 mersenne(0);
 		return charset[mersenne() % max_index];
 	};
 	std::string str(length, 0);
@@ -262,8 +261,7 @@ TEST_F(Standart_tests, RandomItemDeleting)
 	{
 		tested_strings.emplace_back(str_pool.allocate(expected_string));
 	}
-	std::random_device randomDevice;
-	std::mt19937 mersenne(randomDevice());
+	std::mt19937 mersenne(0);
 	std::shuffle(tested_strings.begin(), tested_strings.end(), mersenne);
 	for (auto i = 0; i < objects_count; ++i)
 	{
